@@ -1,5 +1,7 @@
 <template>
-  <div id="map"></div>
+  <div id="map-wrapper">
+    <div ref="mapElemenRef" class="map"></div>
+  </div>
 </template>
 
 <script>
@@ -7,7 +9,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet-draw";
-const L = window['L'];
+const L = window["L"];
 var drawnItems = new L.FeatureGroup();
 var drawControl = new L.Control.Draw({
   edit: {
@@ -24,7 +26,10 @@ export default {
   },
   methods: {
     initMap() {
-      this.map = L.map("map", { drawControl: true }).setView([51.505, -0.09], 13);
+      this.map = L.map(this.$refs.mapElemenRef, { drawControl: true }).setView(
+        [51.505, -0.09],
+        13
+      );
       L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
